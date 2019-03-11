@@ -1,3 +1,4 @@
+import 'package:albacore/bloc/todo_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:albacore/todo/todo-model.dart';
 import 'package:intl/intl.dart';
@@ -68,7 +69,13 @@ class _AddTodoState extends State<AddTodoView> {
           )
         ],
       ),
-      body: _buildWidget(),
+      body: StreamBuilder(
+        stream: bLoc.stream,
+        initialData: bLoc.value,
+        builder: (context, snapshot) {
+          return _buildWidget();
+        },
+      ),
     );
   }
 
@@ -146,7 +153,8 @@ class _AddTodoState extends State<AddTodoView> {
       _descriptionFocusNode.unfocus();
     }
     if (_confirmEnabled) {
-      Navigator.pop(context, _todoModel);
+      bLoc.addTodo(_todoModel);
+      Navigator.of(context).pop();
     } else {
       showSnackBar("请检查输入条件");
     }

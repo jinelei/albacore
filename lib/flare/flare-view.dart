@@ -4,10 +4,10 @@ import 'package:flare_flutter/flare_actor.dart';
 
 class FlareView extends StatefulWidget {
   @override
-  _FlareState createState() => new _FlareState();
+  _FlareViewState createState() => new _FlareViewState();
 }
 
-class _FlareState extends State<FlareView> {
+class _FlareViewState extends State<FlareView> {
   String _animationName = 'fail';
 
   @override

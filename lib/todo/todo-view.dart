@@ -1,3 +1,4 @@
+import 'package:albacore/bloc/todo_bloc.dart';
 import 'package:albacore/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:albacore/todo/todo-model.dart';
@@ -9,13 +10,11 @@ class TodoView extends StatefulWidget {
 }
 
 class _TodoState extends State<TodoView> {
-  List<TodoModel> _todoModelList;
   DateFormat _dateFormat;
 
   @override
   void initState() {
     super.initState();
-    _todoModelList = new List<TodoModel>();
     _dateFormat = new DateFormat("yyyy-MM-dd hh:mm");
   }
 
@@ -26,7 +25,10 @@ class _TodoState extends State<TodoView> {
         title: Text('todo'),
         actions: <Widget>[
           FlatButton(
-            child: Icon(Icons.add,color: Colors.white,),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
             onPressed: () {
               _addTodoModel(context);
             },
@@ -34,20 +36,27 @@ class _TodoState extends State<TodoView> {
         ],
       ),
       drawer: Utils.generateDrawer(context),
-      body: _buildWidget(),
+      body: StreamBuilder<List<TodoModel>>(
+        stream: bLoc.stream,
+        initialData: bLoc.value,
+        builder:
+            (BuildContext context, AsyncSnapshot<List<TodoModel>> snapshot) {
+          return _buildWidget();
+        },
+      ),
     );
   }
 
   Widget _buildWidget() {
-    if (_todoModelList == null || _todoModelList.length == 0) {
+    if (bLoc.value == null || bLoc.value.length == 0) {
       return Text('in todo');
     } else {
       return ListView.builder(
-        itemCount: _todoModelList.length,
+        itemCount: bLoc.value.length,
         itemBuilder: (BuildContext context, int index) {
-          assert(index >= 0 && _todoModelList.length > index,
-              'index out of _todoModelList.length');
-          TodoModel _tmp = _todoModelList[index];
+          assert(index >= 0 && bLoc.value.length > index,
+              'index out of bLoc.value.length');
+          TodoModel _tmp = bLoc.value[index];
           return Card(
               child: Padding(
             padding: EdgeInsets.all(10),
@@ -69,20 +78,31 @@ class _TodoState extends State<TodoView> {
                     ),
                   ],
                 ),
-                Row(children: <Widget>[
+                Row(
+                  children: <Widget>[
                     Text(
                       '${_dateFormat.format(_tmp.startTime)}',
-                      style: TextStyle(color: Colors.grey,fontSize: 12,),
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
                     Text(
                       ' ~ ',
-                      style: TextStyle(color: Colors.grey,fontSize: 12,),
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
                     Text(
                       '${_dateFormat.format(_tmp.endTime)}',
-                      style: TextStyle(color: Colors.grey,fontSize: 12,),
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     )
-                ],)
+                  ],
+                )
               ],
             ),
           ));
@@ -92,13 +112,6 @@ class _TodoState extends State<TodoView> {
   }
 
   _addTodoModel(BuildContext context) {
-      Navigator.pushNamed(context, '/todo/add').then((value) {
-        assert(value is TodoModel, 'value is not TodoModel');
-        assert(_todoModelList != null, '_todoModelList is null');
-        print('add todo model $value');
-        setState(() {
-          _todoModelList.add(value as TodoModel);
-        });
-      });
+    Navigator.of(context).pushNamed('/todo/add');
   }
 }
