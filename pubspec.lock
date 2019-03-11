@@ -36,6 +36,13 @@ packages:
       url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn"
     source: hosted
     version: "0.1.2"
+  flare_flutter:
+    dependency: "direct main"
+    description:
+      name: flare_flutter
+      url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn"
+    source: hosted
+    version: "1.0.11"
   flutter:
     dependency: "direct main"
     description: flutter

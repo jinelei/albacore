@@ -146,7 +146,7 @@ class _AddTodoState extends State<AddTodoView> {
       _descriptionFocusNode.unfocus();
     }
     if (_confirmEnabled) {
-      Navigator.pop(context, new TodoModel("test", "test desctiption"));
+      Navigator.pop(context, _todoModel);
     } else {
       showSnackBar("请检查输入条件");
     }
@@ -238,22 +238,14 @@ class _AddTodoState extends State<AddTodoView> {
     }
   }
 
-  _checkAllInput() {
-    if (_todoModel != null &&
+  bool _checkAllInput() {
+    return _todoModel != null &&
         _todoModel.name != null &&
         _todoModel.name.length != 0 &&
         _todoModel.description != null &&
         _todoModel.description.length != 0 &&
         _todoModel.startTime != null &&
         _todoModel.endTime != null &&
-        _todoModel.finished != null) {
-      setState(() {
-        _confirmEnabled = true;
-      });
-    } else {
-      setState(() {
-        _confirmEnabled = false;
-      });
-    }
+        _todoModel.finished != null;
   }
 }

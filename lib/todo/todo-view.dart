@@ -1,5 +1,7 @@
+import 'package:albacore/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:albacore/todo/todo-model.dart';
+import 'package:intl/intl.dart';
 
 class TodoView extends StatefulWidget {
   @override
@@ -8,11 +10,13 @@ class TodoView extends StatefulWidget {
 
 class _TodoState extends State<TodoView> {
   List<TodoModel> _todoModelList;
+  DateFormat _dateFormat;
 
   @override
   void initState() {
     super.initState();
     _todoModelList = new List<TodoModel>();
+    _dateFormat = new DateFormat("yyyy-MM-dd hh:mm");
   }
 
   @override
@@ -22,13 +26,14 @@ class _TodoState extends State<TodoView> {
         title: Text('todo'),
         actions: <Widget>[
           FlatButton(
-            child: Icon(Icons.add),
+            child: Icon(Icons.add,color: Colors.white,),
             onPressed: () {
               _addTodoModel(context);
             },
           )
         ],
       ),
+      drawer: Utils.generateDrawer(context),
       body: _buildWidget(),
     );
   }
@@ -51,7 +56,7 @@ class _TodoState extends State<TodoView> {
                 Row(
                   children: <Widget>[
                     Text(
-                      'index ${_tmp.name}',
+                      '${_tmp.name}',
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
@@ -61,9 +66,23 @@ class _TodoState extends State<TodoView> {
                     Text(
                       '${_tmp.description}',
                       style: TextStyle(color: Colors.grey),
-                    )
+                    ),
                   ],
-                )
+                ),
+                Row(children: <Widget>[
+                    Text(
+                      '${_dateFormat.format(_tmp.startTime)}',
+                      style: TextStyle(color: Colors.grey,fontSize: 12,),
+                    ),
+                    Text(
+                      ' ~ ',
+                      style: TextStyle(color: Colors.grey,fontSize: 12,),
+                    ),
+                    Text(
+                      '${_dateFormat.format(_tmp.endTime)}',
+                      style: TextStyle(color: Colors.grey,fontSize: 12,),
+                    )
+                ],)
               ],
             ),
           ));
