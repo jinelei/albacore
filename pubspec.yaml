@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   intl: ^0.15.7
   flutter_datetime_picker: ^1.1.2
+  logging: any
 
 dev_dependencies:
   flutter_test:

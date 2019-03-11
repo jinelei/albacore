@@ -1,5 +1,5 @@
-import "package:flutter/material.dart";
-import "package:albacore/todo/todo-model.dart";
+import 'package:flutter/material.dart';
+import 'package:albacore/todo/todo-model.dart';
 
 class TodoView extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _TodoState extends State<TodoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("todo"),
+        title: Text('todo'),
         actions: <Widget>[
           FlatButton(
             child: Icon(Icons.add),
@@ -35,13 +35,13 @@ class _TodoState extends State<TodoView> {
 
   Widget _buildWidget() {
     if (_todoModelList == null || _todoModelList.length == 0) {
-      return Text("in todo");
+      return Text('in todo');
     } else {
       return ListView.builder(
         itemCount: _todoModelList.length,
         itemBuilder: (BuildContext context, int index) {
           assert(index >= 0 && _todoModelList.length > index,
-              "index out of _todoModelList.length");
+              'index out of _todoModelList.length');
           TodoModel _tmp = _todoModelList[index];
           return Card(
               child: Padding(
@@ -51,7 +51,7 @@ class _TodoState extends State<TodoView> {
                 Row(
                   children: <Widget>[
                     Text(
-                      "index ${_tmp.name}",
+                      'index ${_tmp.name}',
                       style: TextStyle(fontSize: 20),
                     ),
                   ],
@@ -59,7 +59,7 @@ class _TodoState extends State<TodoView> {
                 Row(
                   children: <Widget>[
                     Text(
-                      "${_tmp.description}",
+                      '${_tmp.description}',
                       style: TextStyle(color: Colors.grey),
                     )
                   ],
@@ -73,10 +73,10 @@ class _TodoState extends State<TodoView> {
   }
 
   _addTodoModel(BuildContext context) {
-      Navigator.pushNamed(context, "/todo/add").then((value) {
-        assert(value is TodoModel, "value is not TodoModel");
-        assert(_todoModelList != null, "_todoModelList is null");
-        print("add todo model $value");
+      Navigator.pushNamed(context, '/todo/add').then((value) {
+        assert(value is TodoModel, 'value is not TodoModel');
+        assert(_todoModelList != null, '_todoModelList is null');
+        print('add todo model $value');
         setState(() {
           _todoModelList.add(value as TodoModel);
         });

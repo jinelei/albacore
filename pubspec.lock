@@ -60,6 +60,13 @@ packages:
       url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn"
     source: hosted
     version: "0.15.7"
+  logging:
+    dependency: "direct main"
+    description:
+      name: logging
+      url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn"
+    source: hosted
+    version: "0.11.3+2"
   matcher:
     dependency: transitive
     description:
