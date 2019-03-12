@@ -1,4 +1,5 @@
 import 'package:albacore/bloc/bloc_provider.dart';
+import 'package:albacore/pages/home/bloc/home_bloc.dart';
 import 'package:albacore/todo/add-todo-model.dart';
 import 'package:flutter/material.dart';
 import 'package:albacore/todo/todo-view.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      bloc: HomeBloc(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
